@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HINTAY by raymarc</title>
+
+<style>
+:root {
+  --blue-dark: #071a33;
+  --blue-main: #0c2d57;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: radial-gradient(circle at top, var(--blue-main), var(--blue-dark));
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Georgia, serif;
+  color: #fff;
+}
+
+.scene {
+  position: relative;
+  width: 360px;
+  max-width: 95vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+
+/* VINYL */
+.vinyl {
+  width: 280px;
+  height: 280px;
+  max-width: 80vw;
+  aspect-ratio: 1 / 1;
+  margin: auto;
+  background:
+    repeating-radial-gradient(
+      circle,
+      #111 0px,
+      #111 2px,
+      #000 3px,
+      #000 6px
+    );
+  border-radius: 50%;
+  position: relative;
+  box-shadow: 0 0 40px rgba(0,0,0,.85);
+}
+
+.vinyl.spin {
+  animation: vinylSpin 2.2s linear infinite;
+}
+
+@keyframes vinylSpin {
+  to { transform: rotate(360deg); }
+}
+
+/* ALBUM */
+.album {
+  width: 80px;
+  height: 80px;
+  max-width: 22vw;
+  max-height: 22vw;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+  box-shadow: 0 0 12px rgba(0,0,0,.7);
+}
+
+.hole {
+  width: 8px;
+  height: 8px;
+  background: #000;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
+
+
+/* MOBILE TUNING */
+@media (max-width: 480px) {
+  .scene {
+    height: 500px;
+  }
+
+  .paper.open {
+    height: 320px;
+  }
+
+  .message {
+    font-size: 0.9rem;
+  }
+}
+
+/* 🎵 MINI PLAYER FEATURE */
+.love-player {
+  width: 100%;
+  max-width: 380px;
+  background: #2f2f2f;
+  border-radius: 25px;
+  padding: 15px; /* keep padding, but no fixed height */
+  color: white;
+  font-family: Arial, sans-serif;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  margin: auto;
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+/* HEADER */
+.love-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.love-album {
+  width: 100px;
+  height: 100px;
+  border-radius: 15px;
+  object-fit: cover;
+}
+
+.love-header h2 {
+  margin: 0;
+  font-size: 23px;
+}
+
+.love-header p {
+  margin: 3px 0 0;
+  font-size: 13px;
+  opacity: 0.7;
+}
+
+/* CONTROLS */
+.love-controls {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin: 15px 0;
+}
+
+.love-controls button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 26px;
+  cursor: pointer;
+}
+
+/* PROGRESS */
+.love-progress {
+  width: 100%;
+  height: 5px;
+  background: #555;
+  border-radius: 5px;
+}
+
+.love-bar {
+  height: 5px;
+  width: 0%;
+  background: white;
+  border-radius: 5px;
+}
+
+/* TIME */
+.love-time {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  opacity: 0.6;
+  margin-top: 5px;
+}
+
+/* TAP BUTTON */
+.love-scroll-btn {
+  margin-top: 12px;
+  width: 100%;
+  padding: 12px;
+  border-radius: 18px;
+  background: #1e73ff;
+  border: none;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.love-scroll-paper.open {
+  transform: scaleY(1);
+  opacity: 1;
+
+  max-height: 500px; /* enough for message + photos */
+}
+
+/* ROLLING PAPER (OPENS DOWNWARD) */
+.love-scroll-paper {
+  position: relative; /* NOT absolute anymore */
+  width: 92%;
+  margin-top: 15px;
+
+  transform: scaleY(0);
+  transform-origin: top; /* unfold downward */
+
+  background: #fdf6e3;
+  border-radius: 20px;
+  padding: 15px;
+  color: #222;
+
+  box-shadow: inset 0 -8px 15px rgba(0,0,0,0.25),
+              0 15px 25px rgba(0,0,0,0.35);
+
+  transition: 0.6s ease;
+  opacity: 0;
+
+  max-height: 0;
+  overflow: hidden;
+}
+
+/* MEMORY PHOTOS */
+.love-memories {
+  position: relative;
+  height: 120px;
+  margin-top: 10px;
+}
+
+.love-memories img {
+  width: 55px;
+  height: 55px;
+  object-fit: cover;
+  border-radius: 12px;
+  position: absolute;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.25);
+}
+
+/* MOBILE TUNING IMPROVEMENTS */
+@media (max-width: 450px) {
+  .scene {
+    height: auto;
+    gap: 15px;
+    padding: 10px;
+  }
+
+  .vinyl {
+    width: 220px;
+    height: 220px;
+  }
+
+  .album {
+    width: 100px;
+    height: 1000px;
+  }
+
+  .love-player {
+    width: 89%;
+    padding: 18px;
+  }
+
+  .love-header h2 {
+    font-size: 18px;
+  }
+
+  .love-header p {
+    font-size: 11px;
+  }
+
+  .love-controls button {
+    font-size: 22px;
+    gap: 20px;
+  }
+
+  .love-scroll-btn {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .love-scroll-paper {
+    max-height: 300px;
+    overflow-y: auto;
+    padding: 10px;
+  }
+
+  .love-memories {
+    height: 90px;
+  }
+
+  .love-memories img {
+    width: 45px;
+    height: 45px;
+  }
+
+  .love-memories img:nth-child(2) { left: 70px; }
+  .love-memories img:nth-child(3) { right: 10px; }
+  .love-memories img:nth-child(5) { right: 50px; }
+}
+
+
+/* RANDOM PLACEMENTS */
+.love-memories img:nth-child(1){ top:5px; left:10px; transform: rotate(-10deg);}
+.love-memories img:nth-child(2){ top:25px; left:90px; transform: rotate(8deg);}
+.love-memories img:nth-child(3){ top:10px; right:15px; transform: rotate(-5deg);}
+.love-memories img:nth-child(4){ bottom:5px; left:40px; transform: rotate(12deg);}
+.love-memories img:nth-child(5){ bottom:10px; right:70px; transform: rotate(-8deg);}
+.love-memories img:nth-child(6){ bottom:0px; right:10px; transform: rotate(6deg);}
+/* ✅ CENTER THE MINI PLAYER BOX ONLY (layout stays the same) */
+.love-player {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
+
+
+</style>
+</head>
+
+<body>
+
+<body>
+
+<div class="scene">
+
+  <!-- VINYL -->
+  <div id="vinyl" class="vinyl">
+    <img src="album pic.png" class="album" alt="Album Art">
+    <div class="hole"></div>
+  </div>
+
+  <!-- MINI PLAYER UNDER VINYL -->
+  <div class="love-player">
+
+    <!-- SONG HEADER -->
+    <div class="love-header">
+      <img src="album.jpg" class="love-album" alt="Album">
+
+      <div>
+        <h2>Maghihintay</h2>
+        <p>raymarcbobis</p>
+      </div>
+    </div>
+
+    <!-- CONTROLS -->
+    <div class="love-controls">
+      <button>⏮</button>
+      <button id="lovePlayBtn">▶</button>
+      <button>⏭</button>
+    </div>
+
+    <!-- PROGRESS -->
+    <div class="love-progress">
+      <div class="love-bar" id="loveBar"></div>
+    </div>
+
+    <div class="love-time">
+      <span id="loveCurrent">0:00</span>
+      <span id="loveDuration">0:00</span>
+    </div>
+
+    <!-- TAP BUTTON -->
+    <button class="love-scroll-btn" id="loveScrollBtn">
+      Tap for a Surprise 💌
+    </button>
+
+    <!-- ROLLING PAPER -->
+    <div class="love-scroll-paper" id="lovePaper">
+      <h3>My Love ❤️</h3>
+      <p>
+        This song is for you.  
+        No matter what happens, I will always wait and choose you.
+      </p>
+
+      <!-- MEMORY PHOTOS -->
+      <div class="love-memories">
+        <img src="pic1.jpg">
+        <img src="pic2.jpg">
+        <img src="pic3.jpg">
+        <img src="pic4.jpg">
+        <img src="pic5.jpg">
+        <img src="pic6.jpg">
+      </div>
+    </div>
+
+    <!-- AUDIO -->
+    <audio id="loveAudio">
+      <source src="song.mp3" type="audio/mpeg">
+    </audio>
+
+  </div>
+
+</div>
+
+<script>
+const audio = document.getElementById("loveAudio");
+const playBtn = document.getElementById("lovePlayBtn");
+
+const vinyl = document.getElementById("vinyl");
+
+const bar = document.getElementById("loveBar");
+const current = document.getElementById("loveCurrent");
+const duration = document.getElementById("loveDuration");
+
+let playing = false;
+
+/* PLAY / PAUSE */
+playBtn.onclick = () => {
+  if (!playing) {
+    audio.play();
+    playBtn.textContent = "⏸";
+
+    /* VINYL START SPIN */
+    vinyl.classList.add("spin");
+
+  } else {
+    audio.pause();
+    playBtn.textContent = "▶";
+
+    /* VINYL STOP SPIN */
+    vinyl.classList.remove("spin");
+  }
+
+  playing = !playing;
+};
+
+/* UPDATE PROGRESS */
+audio.addEventListener("timeupdate", () => {
+  bar.style.width = (audio.currentTime / audio.duration) * 100 + "%";
+  current.textContent = format(audio.currentTime);
+});
+
+audio.addEventListener("loadedmetadata", () => {
+  duration.textContent = format(audio.duration);
+});
+
+function format(sec) {
+  let m = Math.floor(sec / 60);
+  let s = Math.floor(sec % 60);
+  return m + ":" + (s < 10 ? "0" : "") + s;
+}
+
+/* PAPER TOGGLE */
+const scrollBtn = document.getElementById("loveScrollBtn");
+const paper = document.getElementById("lovePaper");
+
+scrollBtn.onclick = () => {
+  paper.classList.toggle("open");
+};
+
+</script>
+
+
+</body>
+</html>
+
