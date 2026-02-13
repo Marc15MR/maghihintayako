@@ -208,29 +208,37 @@ body {
   max-height: 500px; /* enough for message + photos */
 }
 
-/* ROLLING PAPER (OPENS DOWNWARD) */
+/* ROLLING PAPER */
 .love-scroll-paper {
-  position: relative; /* NOT absolute anymore */
   width: 92%;
   margin-top: 15px;
 
-  transform: scaleY(0);
-  transform-origin: top; /* unfold downward */
-
   background: #fdf6e3;
   border-radius: 20px;
-  padding: 15px;
+  padding: 0px; /* closed = no padding */
+
   color: #222;
 
   box-shadow: inset 0 -8px 15px rgba(0,0,0,0.25),
               0 15px 25px rgba(0,0,0,0.35);
 
-  transition: 0.6s ease;
-  opacity: 0;
+  overflow: hidden;
 
   max-height: 0;
-  overflow: hidden;
+  opacity: 0;
+
+  transition: max-height 0.8s ease, 
+              padding 0.5s ease,
+              opacity 0.5s ease;
 }
+
+/* OPEN STATE */
+.love-scroll-paper.open {
+  max-height: 2000px; /* VERY LARGE so it fits long letters */
+  padding: 15px;      /* padding appears when open */
+  opacity: 1;
+}
+
 
 /* MEMORY PHOTOS */
 .love-memories {
@@ -324,6 +332,14 @@ body {
   display: block;
 }
 
+@media (max-width: 450px) {
+
+  .love-scroll-paper.open {
+    max-height: 70vh; /* paper never exceeds screen height */
+    overflow-y: auto; /* scroll if letter is long */
+  }
+
+}
 
 
 </style>
@@ -380,8 +396,8 @@ body {
     <div class="love-scroll-paper" id="lovePaper">
       <h3>Ms. Bungisnigs❤️</h3>
       <p>
-        Hello po, while listening to that song gusto ko lang po sabihin sayo bakit naisipan ko gumawa ng isang kanta at ano ba ang kwento ng kanta. May 31, 2025, actually aksidente ang paggawa ko nyan, dapat talaga laman nyan ay ang mga gusto ko sabihin sayo non ngunit dahil nga sa nag-away tayo nung gabi non napalitan ng lungkot ang dapat masayang gabi, 
-        di ko inaakala na mapupunta tayo sa sitwasyon na yon, akala ko lang kase cool off lang pero napunta sa hiwalayan. aaminin ko nagalit ako nung gabi non na dapat hindi talaga. after ng paguusap natin sinimulan ko itanong sa sarili ko ang salitang bakit mo ko tinutulak palayo? bakit kailangan mo gawin yon? bat di mo pa sinabi agad nung una palang? 
+        Hello po, while listening to that song gusto ko lang po sabihin sayo bakit naisipan ko gumawa ng isang kanta at ano ba ang kwento ng kanta. May 31, 2025, actually aksidente ang paggawa ko nyan, dapat talaga laman nyan ay ang mga gusto ko sabihin sayo non pero dahil nga sa nag-away tayo nung gabi non napalitan ng lungkot ang dapat masayang gabi, 
+        di ko inaakala na mapupunta tayo sa sitwasyon na yon, akala ko lang kase cool off lang pero napunta sa sumbatan,awayan, at di dapat sabihin. aaminin ko nagalit ako nung gabi non na dapat hindi talaga. after ng paguusap natin sinimulan ko itanong sa sarili ko ang salitang bakit mo ko tinutulak palayo? bakit kailangan mo gawin yon? bat di mo pa sinabi agad nung una palang? 
         hindi ko alam pero nakatulong sakin na maintindihan ko ulit ang mga taong may avoidant attachment after ko maitanong yan sa sarili ko. nung una tula sana ang isusulat ko ngunit ng tumagal ang mga salita ay naging kanta, tumagal din to ng pitong buwan kung saan linggo linggo nagdadagdag ako ng salita na galing kwento natin.
         kung maaalala mo nung tumambay tayo kay ven kumakanta ako non di dahil sa sinasabayan ko ang kanta kundi nagiisip ako na pwede idagdag, thanks God at di mo napansin na iba na pala ang ginagawa ko, at buti nalang nung hinihiram mo ang phone ko di mo nakikita ang lyrics na ginagawa ko. at kung magtataka ka rin bat iba ang kumakanta at di ako yun ay dahil may boice crack ako nung nirecord yan but thanks to sir raymond ang vocalist ng church namin at ang sound sanctuary recording studio sa caloocan they made it perfectly acording sa plano ko. at alam mo ba na dapat birthday mo talaga 
         ko ito ibibigay kaso nga lang hindi pa tapos ang kanta at kinulang budget hehehe pero kahit ganon success naman ang pagpapaiyak ko sayo nung birthday mo. medyo humahaba na ang kwento ko ngagyon gusto ko naman sabihin ano nga ba ang ibig sabihin ng kanta "Maghihintay"?ito ay para sa sinumang naniniwala na ang pagmamahal ay hindi laging kailangang magmadali.
@@ -469,5 +485,4 @@ scrollBtn.onclick = () => {
 
 </body>
 </html>
-
 
